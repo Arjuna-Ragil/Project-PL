@@ -4,6 +4,9 @@
 @theme {
   --color-navbarContainer: #007a85;
   --color-navbarSelect: #d95d39;
+  --color-heroShadow: #d9856d;
+  --color-container: #faf2e5;
+  --color-containerHover: #faf2c5
 }
 
 :root {

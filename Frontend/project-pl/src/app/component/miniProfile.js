@@ -8,7 +8,7 @@ export default function MiniProfile() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await fetch("http://localhost:8000/2")
+                const res = await fetch("http://localhost:8000/user/2")
                 const data = await res.json()
                 setUser(data)
             }
