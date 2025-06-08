@@ -12,6 +12,7 @@
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "swiper": "^11.2.8",
     "tailwindcss-motion": "^1.1.0"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4"
   }
 }

@@ -2,27 +2,12 @@
 @plugin "tailwindcss-motion";
 
 @theme {
-  --color-navbarContainer: #007a85;
-  --color-navbarSelect: #d95d39;
-  --color-heroShadow: #d9856d;
-  --color-container: #faf2e5;
-  --color-containerHover: #faf2c5
+  --color-background1: #f2e5b8;
+  --color-background2: #ecc1c7;
+  --color-background3: #d1537d;
+  --color-select: #eb7994;
 }
 
-:root {
-  --background: #fff8ed;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.swiper-button-prev, .swiper-button-next {
+    --swiper-theme-color: #ffffff;
 }
