@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function CheckoutNavBar() {
     return(
-         <div className="fixed z-50 w-full px-5">
+         <div className="fixed z-50 w-full">
             <div className="h-3 w-full bg-white/50 backdrop-blur-2xl"></div>
-            <div className="z-40 flex w-full flex-col justify-between bg-white py-5 text-black gap-5 border-b-2 border-gray-400">
+            <div className="z-40 flex w-full flex-col justify-between bg-white p-5 text-black gap-5 border-b-2 border-gray-400">
                 <div className="flex flex-row gap-10">
                     <Link href={"/"}>
                         <Image src={"/logo.svg"} alt="logo" height={120} width={120} />
