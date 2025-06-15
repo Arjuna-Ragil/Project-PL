@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function FlashSaleShortList() {
+export default function FlashSaleList({type, amount}) {
   const [products, setProducts] = useState([]);
 
   function formatPrice(price) {
@@ -31,28 +31,29 @@ export default function FlashSaleShortList() {
   }, []);
 
   return (
-    <div className="flex h-85 w-screen flex-row items-center gap-5 overflow-scroll p-5">
-      {products.slice(0, 10).map((product) => (
+    <>
+      {products.slice(0, amount).map((product) => (
         <div key={product.product_id}>
           <Link href={`/products/${product.product_id}`}>
-            <div className="hover:border-select relative h-full w-full rounded-2xl border-2 border-gray-600/50 bg-white p-2 duration-300 hover:border-4 hover:shadow-xl">
+            <div className="hover:border-select hover:scale-105 relative h-full w-full rounded-2xl border-2 border-gray-600/50 bg-white p-2 duration-300 hover:border-4 hover:shadow-xl">
               <Image
                 src={"/addIcon.svg"}
                 alt="add"
-                width={30}
-                height={30}
+                width={20}
+                height={20}
                 className="hover:bg-select justify-self-end rounded-full p-1 transition-colors duration-300"
               />
-              <div className="flex flex-col gap-2 p-3">
-                <div className="relative flex h-[140px] w-auto items-center justify-center border-b-2">
+              <div className="flex flex-col gap-2 md:p-3">
+                <div className="relative flex h-[90px] w-auto items-center justify-center border-b-2 pb-1 md:h-[140px]">
                   <Image
                     src={product.image_URL}
                     alt="product"
                     width={100}
                     height={100}
+                    className="aspect-square h-full w-auto"
                   />
                 </div>
-                <div className="truncate">
+                <div className="truncate text-xs md:text-base">
                   <p className="font-bold">{product.brand}</p>
                   <p>{product.name}</p>
                   <p className="text-background3">
@@ -64,7 +65,7 @@ export default function FlashSaleShortList() {
           </Link>
         </div>
       ))}
-      <Link href={"/products/flashsale"}>
+      <Link href={"/products/flashsale"} className={` ${type} `}>
         <button className="hover:bg-select flex flex-col items-center justify-center rounded-2xl border-2 border-gray-400 bg-white p-3 transition-colors duration-200 hover:border-black">
           <p className="text-black">See More</p>
           <Image
@@ -76,6 +77,6 @@ export default function FlashSaleShortList() {
           />
         </button>
       </Link>
-    </div>
+    </>
   );
 }

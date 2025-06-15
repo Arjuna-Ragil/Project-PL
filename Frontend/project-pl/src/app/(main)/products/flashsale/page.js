@@ -4,6 +4,7 @@ import Footer from "@/app/(main)/component/footer";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import FlashSaleList from "../../component/flashSaleList";
 
 export default function FlashSalePage() {
   const [products, setProducts] = useState([]);
@@ -32,47 +33,16 @@ export default function FlashSalePage() {
   }, []);
 
   return (
-    <div className="flex h-full w-full flex-col pt-27">
-      <div className="h-117 w-full bg-[url('/flashHero.svg')]"></div>
+    <div className="flex h-full w-full flex-col">
+      <div className="bg-[url('/flashHero.svg')] bg-contain bg-no-repeat bg-center lg:h-130 md:h-80 sm:h-50 h-35 2xl:w-[1440px] w-full mx-auto bg-white/70 backdrop-blur-3xl md:mt-20 sm:mt-22 mt-17 "></div>
       <div className="flex h-full w-full flex-row items-center justify-between bg-white p-5">
         <Link href="/">
           <Image src={"/backIcon.svg"} alt="back" height={50} width={50} />
         </Link>
         <p>time</p>
       </div>
-      <div className="grid h-full w-full grid-cols-4 gap-5 bg-white/50 p-10">
-        {products.map((product) => (
-          <div key={product.product_id}>
-            <Link href={`/products/${product.product_id}`}>
-              <div className="hover:border-select relative h-full w-full rounded-2xl border-2 border-gray-600/50 bg-white p-2 duration-300 hover:border-4 hover:shadow-xl">
-                <Image
-                  src={"/addIcon.svg"}
-                  alt="add"
-                  width={30}
-                  height={30}
-                  className="hover:bg-select justify-self-end rounded-full p-1 transition-colors duration-300"
-                />
-                <div className="flex flex-col gap-2 p-3">
-                  <div className="relative flex h-[140px] w-auto items-center justify-center border-b-2">
-                    <Image
-                      src={product.image_URL}
-                      alt="product"
-                      width={100}
-                      height={100}
-                    />
-                  </div>
-                  <div className="truncate">
-                    <p className="font-bold">{product.brand}</p>
-                    <p>{product.name}</p>
-                    <p className="text-background3">
-                      {formatPrice(product.price)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </div>
-        ))}
+      <div className="grid h-full w-full lg:grid-cols-6 md:grid-cols-4 grid-cols-2 gap-5 bg-white/50 p-5">
+        <FlashSaleList type={"hidden"} amount={24} />
       </div>
       <Footer />
     </div>

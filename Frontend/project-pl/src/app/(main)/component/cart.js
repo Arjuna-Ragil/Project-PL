@@ -35,7 +35,7 @@ export default function CartItems({ setShowCart }) {
             key={item.product_id}
             className="h-35 w-full border-b-2 border-gray-600/50 bg-white p-2"
           >
-            <div className="flex flex-row items-center gap-5 p-3">
+            <div className="grid grid-cols-2 items-center gap-5 sm:p-3 ">
               <div className="relative flex h-[100px] w-[100px] items-center justify-center border-r-2">
                 <Image
                   src={item.image_URL}
