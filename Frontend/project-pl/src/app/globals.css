@@ -1,26 +1,16 @@
 @import "tailwindcss";
+@plugin "tailwindcss-motion";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  --color-background1: #f2e5b8;
+  --color-background2: #ecc1c7;
+  --color-background3: #d1537d;
+  --color-select: #eb7994;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --color-backgroundDark1: #0d0014;  
+  --color-backgroundDark2: #2a0040;  
+  --color-backgroundDark3: #6a0dad; 
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
