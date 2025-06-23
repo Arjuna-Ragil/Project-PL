@@ -12,59 +12,24 @@ export default function SignUpPage() {
     "w-full rounded-full border border-gray-300 px-4 py-2 focus:border-pink-500 focus:outline-none";
 
   return (
-    <div className="min-h-screen flex flex-col bg-[url('/bg.svg')] bg-cover bg-center font-sans">
-      {/* === Header Strip di atas Navbar === */}
-      <div className="w-full">
-        <Image
-          src="/Rectangle 103.svg"
-          alt="Top Header Strip"
-          width={1920}
-          height={10}
-          className="w-full h-auto"
-        />
-      </div>
+    <div className="min-h-screen flex flex-col bg-[url('/bg.svg')] bg-cover bg-center font-sans relative">
 
-      {/* === Navbar === */}
-      <header className="sticky top-0 z-50 bg-white bg-opacity-70 backdrop-blur-sm shadow">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          <div className="flex items-center space-x-6">
-            <Link href="/homePage">
-              <Image
-                src="/logo.svg"
-                alt="Eclara logo"
-                width={120}
-                height={60}
-                className="h-16 w-auto cursor-pointer"
-              />
-            </Link>
-            <nav className="hidden md:flex space-x-6 text-sm font-medium text-gray-800">
-              <a href="#" className="hover:text-pink-500">SKINCARE</a>
-              <a href="#" className="hover:text-pink-500">BODYCARE</a>
-              <a href="#" className="hover:text-pink-500">HAIRCARE</a>
-              <a href="#" className="hover:text-pink-500">MAKEUP</a>
-            </nav>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Image src="/search.svg" alt="search" width={20} height={20} className="w-5 h-5 cursor-pointer" />
-            <Image src="/cart.svg" alt="cart" width={20} height={20} className="w-5 h-5 cursor-pointer" />
-            <Image src="/profile.svg" alt="profile" width={20} height={20} className="w-5 h-5 cursor-pointer" />
-          </div>
-        </div>
-      </header>
+      {/* === Back Button === */}
+      <Link href="/" className="absolute top-4 left-4 z-50">
+        <Image src="/backIcon.svg" alt="Back" width={30} height={30} />
+      </Link>
 
       {/* === Main Content === */}
       <main className="flex-grow flex flex-col md:flex-row items-center justify-center px-6 py-12">
         {/* Logo + Tagline */}
         <div className="md:w-1/2 mb-12 md:mb-0 flex flex-col items-start text-left pl-12">
-          <Link href="/homePage">
-            <Image
-              src="/logo.svg"
-              alt="Eclara"
-              width={400}
-              height={140}
-              className="mb-2 cursor-pointer"
-            />
-          </Link>
+          <Image
+            src="/logo.svg"
+            alt="Eclara"
+            width={400}
+            height={140}
+            className="mb-2 cursor-pointer"
+          />
           <p className="text-pink-700 font-semibold text-2xl mt-6">
             Beauty Doesn’t Have to Be Expensive.
           </p>
@@ -96,7 +61,7 @@ export default function SignUpPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-0 flex items-center pr-4"
               >
-                {/* password icon */}
+                {/* optional: add eye icon here */}
               </button>
             </div>
 
@@ -113,7 +78,7 @@ export default function SignUpPage() {
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute inset-y-0 right-0 flex items-center pr-4"
               >
-                {/* confirm icon */}
+                {/* optional: add eye icon here */}
               </button>
             </div>
 
@@ -131,6 +96,14 @@ export default function SignUpPage() {
               SIGN UP
             </button>
           </form>
+
+          {/* === Already have account? === */}
+          <p className="mt-6 text-center text-sm text-gray-700">
+            Already have an account?{" "}
+            <Link href="/signin" className="text-pink-600 hover:underline font-semibold">
+              Sign In
+            </Link>
+          </p>
         </div>
       </main>
     </div>

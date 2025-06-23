@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -25,18 +26,22 @@ export default function Footer() {
         <h2 className="md:text-3xl text-lg font-bold">
           REGISTER YOUR EMAIL FOR NEWS AND SPECIAL OFFERS
         </h2>
-        <div className="group relative z-30">
-          <div className="from-background1 to-background2 flex md:w-2/3 w-full flex-row items-center justify-between bg-gradient-to-r from-10% p-3 transition-all duration-200 not-group-hover:translate-2">
-            <button>SIGN UP</button>
-            <Image
-              src={"/redirectIcon.svg"}
-              alt="Arrow Icon"
-              width={50}
-              height={50}
-            />
+        <Link href={"/signup"}>
+          <div className="group relative z-30">
+            <div className="from-background1 to-background2 flex md:w-2/3 w-full flex-row items-center justify-between bg-gradient-to-r from-10% p-3 transition-all duration-200 not-group-hover:translate-2">
+                <button>
+                  SIGN UP
+                </button>
+              <Image
+                src={"/redirectIcon.svg"}
+                alt="Arrow Icon"
+                width={50}
+                height={50}
+              />
+            </div>
+            <div className="bg-select absolute -bottom-3 left-3 -z-10 h-15 w-2/3 opacity-0 transition-all duration-200 group-hover:opacity-100"></div>
           </div>
-          <div className="bg-select absolute -bottom-3 left-3 -z-10 h-15 w-2/3 opacity-0 transition-all duration-200 group-hover:opacity-100"></div>
-        </div>
+        </Link>
         <h3 className="mt-3 md:w-fit w-full border-b-2 text-3xl p-1">More Inspiration</h3>
         <div className="flex flex-row gap-5 max-md:justify-center">
           <button className="hover:bg-background1 rounded-xl duration-200">
