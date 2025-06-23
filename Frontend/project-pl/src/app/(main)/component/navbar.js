@@ -152,7 +152,7 @@ export default function Navbar() {
       )}
       {showProfile ? (
         <div
-          className="motion-preset-slide-left fixed right-2 z-50 mt-3 h-60 sm:w-80 w-65 rounded-lg bg-white p-3 shadow-xl"
+          className="motion-preset-slide-left fixed right-2 z-50 mt-3 h-60 sm:w-80 w-65"
           onMouseLeave={() => setShowProfile(false)}
         >
           <MiniProfile />

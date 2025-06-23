@@ -1,5 +1,5 @@
-
 import "../globals.css";
+import { AccountProvider } from "../hooks/userAccount";
 import Navbar from "./component/navbar";
 
 export const metadata = {
@@ -11,9 +11,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="from-background1 via-background2 to-background3 fixed -z-50 h-screen w-screen bg-gradient-to-br from-10% via-40%"></div>
-        <Navbar/>
-        {children}
+        <AccountProvider>
+          <div className="from-background1 via-background2 to-background3 fixed -z-50 h-screen w-screen bg-gradient-to-br from-10% via-40%"></div>
+          <Navbar/>
+          {children}
+        </AccountProvider>
       </body>
     </html>
   );

@@ -1,43 +1,45 @@
+import { useAccount } from "@/app/hooks/userAccount";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function MiniProfile() {
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch("http://localhost:8000/user/2");
-        const data = await res.json();
-        setUser(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, []);
+  const { account } = useAccount()
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 p-3">
+    <div className="flex flex-col items-center justify-center gap-2 rounded-lg bg-white p-3 shadow-xl">
       <Image
         src={"/profilePlaceHolder.svg"}
         alt="Profile Picture"
-        height={50}
-        width={50}
+        height={100}
+        width={100}
       />
       <div className="flex flex-col text-center">
-        <p className="truncate">{user.username}</p>
-        <p className="truncate">{user.Email}</p>
+        <p className="truncate text-2xl font-semibold">{account?.name || "Guest"}</p>
+        <p className="truncate">@{account?.username || "Guest"}</p>
       </div>
-      <div className="flex flex-row gap-5">
-        <button className="rounded-2xl bg-pink-300 p-3 duration-300 hover:bg-pink-400">
-          Edit Profile
+      <div className="flex w-full flex-col items-start justify-start gap-2 border-b-2 p-1">
+        <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
+          My Orders
         </button>
-        <button className="rounded-2xl bg-red-500 p-3 duration-300 hover:bg-red-600">
-          Logout
+        <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
+          Shipping Address
         </button>
+        <Link href={"/setting"}>
+          <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
+            Setting
+          </button>
+        </Link>
       </div>
+      <button className="text-background3 hover:text-select group hover:bg-select/10 flex flex-row gap-3 self-start rounded-2xl p-3 duration-300">
+        <Image
+          src={"/logoutIcon.svg"}
+          alt="logout"
+          width={20}
+          height={20}
+          className="group-hover:brightness-110"
+        />
+        <p>Logout</p>
+      </button>
     </div>
   );
 }
