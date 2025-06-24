@@ -144,7 +144,7 @@ export default function Navbar() {
         <></>
       )}
       {showCart ? (
-        <div className="motion-preset-slide-left fixed right-2 z-50 h-2/3 mt-3 flex sm:w-80 w-60 flex-col border-2 border-black bg-white p-3 shadow-xl">
+        <div className="motion-preset-slide-left fixed right-2 z-50 h-2/3 mt-3 flex sm:w-100 w-75 flex-col border-2 border-black bg-white p-3 shadow-xl">
           <CartItems setShowCart={setShowCart} />
         </div>
       ) : (

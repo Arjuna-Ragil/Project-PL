@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from "react";
+import Loading from "../loading";
 
 const AccountContext = createContext()
 
@@ -26,7 +27,7 @@ export function AccountProvider({ children }) {
       return (
         <>
             {loading ? 
-                <div>Loading</div>
+                <Loading/>
             :
                 <AccountContext.Provider value={{ account, setAccount, loading}}>
                     {children}

@@ -21,9 +21,6 @@ export default function MiniProfile() {
         <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
           My Orders
         </button>
-        <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
-          Shipping Address
-        </button>
         <Link href={"/setting"}>
           <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
             Setting
