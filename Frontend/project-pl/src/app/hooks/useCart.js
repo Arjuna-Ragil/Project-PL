@@ -5,7 +5,7 @@ import { createContext, useState, useEffect, useContext } from "react";
 const CartContext = createContext()
 
 export function CartProvider({ children }) {
-    const [cart, setCart] = useState(null);
+    const [cart, setCart] = useState([]);
 
     async function fetchData() {
     try {
