@@ -34,14 +34,14 @@ export default function FlashSalePage() {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div className="bg-[url('/flashHero.svg')] bg-contain bg-no-repeat bg-center lg:h-130 md:h-80 sm:h-50 h-35 2xl:w-[1440px] w-full mx-auto bg-white/70 backdrop-blur-3xl md:mt-20 sm:mt-22 mt-17 "></div>
-      <div className="flex h-full w-full flex-row items-center justify-between bg-white p-5">
+      <div className="bg-[url('/flashHero.svg')] bg-contain bg-no-repeat bg-center lg:h-130 md:h-80 sm:h-50 h-35 2xl:w-[1440px] w-full mx-auto bg-white/70 backdrop-blur-3xl md:mt-22 sm:mt-22 mt-17 "></div>
+      <div className="flex h-full w-full flex-row items-center justify-between bg-white dark:bg-gray-500/50 p-5">
         <Link href="/">
-          <Image src={"/backIcon.svg"} alt="back" height={50} width={50} />
+          <Image src={"/backIcon.svg"} alt="back" height={50} width={50} className="dark:invert"/>
         </Link>
         <p>time</p>
       </div>
-      <div className="grid h-full w-full lg:grid-cols-6 md:grid-cols-4 grid-cols-2 gap-5 bg-white/50 p-5">
+      <div className="grid h-full w-full lg:grid-cols-6 md:grid-cols-4 grid-cols-2 gap-5 bg-white/50 dark:bg-black/50 p-5">
         <FlashSaleList type={"hidden"} amount={24} />
       </div>
       <Footer />

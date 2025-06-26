@@ -20,15 +20,15 @@ export default function Summary() {
   }
 
     return(
-        <div className="bg-background1 flex flex-col p-2">
+        <div className="bg-background1 dark:bg-backgroundDark1 flex flex-col p-2">
           <h2 className="text-2xl font-bold p-2">ORDER SUMMARY:</h2>
-          <div className="bg-white p-3">
+          <div className="bg-white dark:bg-gray-500/70 p-3">
             <p className="p-1">{totalAmount} Product(s)</p>
             <div className="flex-1 overflow-y-auto h-100 border-y-2 p-2">
                 {cart.map((item) => (
                     <div
                     key={item.product_id}
-                    className="h-35 w-full border-b-2 border-gray-600/50 bg-white"
+                    className="h-35 w-full border-b-2 border-gray-600/50 dark:border-white/50 bg-white dark:bg-transparent"
                     >
                     <div className="grid grid-cols-3 items-center gap-5 sm:p-3 ">
                         <div className="relative flex h-[100px] w-[100px] items-center justify-center border-1 border-gray-400/50">
@@ -45,7 +45,7 @@ export default function Summary() {
                             <p>{item.name}</p>
                             <p>qty: {item.quantity}</p>
                             <p>Price: {formatPrice(item.price)}</p>
-                            <p className="text-background3">Total: {formatPrice(item.quantity * item.price)}</p>
+                            <p className="text-background3 dark:text-background2">Total: {formatPrice(item.quantity * item.price)}</p>
                         </div>
                         </div>
                     </div>

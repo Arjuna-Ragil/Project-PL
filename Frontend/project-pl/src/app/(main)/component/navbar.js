@@ -24,8 +24,8 @@ export default function Navbar() {
 
   return (
     <div className="fixed z-50 w-full">
-      <div className="h-3 w-full bg-white/50 backdrop-blur-2xl"></div>
-      <div className="z-40 flex h-fit w-full flex-row justify-between bg-white/90 p-2 text-black">
+      <div className="h-3 w-full bg-white/50 dark:bg-gray-500/50 backdrop-blur-2xl"></div>
+      <div className="z-40 flex h-fit w-full flex-row justify-between bg-white/90 dark:bg-gray-500/60 p-2 text-black">
         <div className="flex flex-row gap-5">
           <div className="sm:h-15 sm:w-30 h-10 w-20">
             <Link href={"/"} className="h-full">
@@ -38,7 +38,7 @@ export default function Navbar() {
               />
             </Link>
           </div>
-          <div className="flex flex-row items-center justify-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl">
+          <div className="flex flex-row items-center justify-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl dark:text-white">
             <button
               className={`border-select flex flex-row items-center justify-center gap-1 truncate p-1 transition-all duration-100 hover:border-b-2 md:hidden ${hideCategory ? "max-lg:hidden" : ""}`}
               onClick={() => {
@@ -71,7 +71,7 @@ export default function Navbar() {
                 placeholder="search product"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="motion-preset-blur-left motion-duration-200 focus:border-select h-full w-full rounded-xl border-2 border-black bg-white sm:p-3 p-2 px-2 text-black focus:outline-0"
+                className="motion-preset-blur-left motion-duration-200 focus:border-select h-full w-full rounded-xl border-2 border-black bg-white dark:bg-purple-600/10 sm:p-3 p-2 px-2 text-black dark:text-white focus:outline-0"
               />
               <button
                 onClick={() => {
@@ -83,6 +83,7 @@ export default function Navbar() {
                   alt="Close"
                   width={30}
                   height={30}
+                  className="dark:invert"
                 />
               </button>
             </div>
@@ -98,7 +99,7 @@ export default function Navbar() {
                 alt="Search Icon"
                 width={37}
                 height={37}
-                className="invert"
+                className="invert dark:invert-0"
               />
             </button>
           )}
@@ -115,7 +116,7 @@ export default function Navbar() {
               alt="Cart Icon"
               width={35}
               height={35}
-              className="invert"
+              className="invert dark:invert-0"
             />
           </button>
           <button
@@ -131,7 +132,7 @@ export default function Navbar() {
               alt="Profile Icon"
               width={35}
               height={35}
-              className="invert"
+              className="invert dark:invert-0"
             />
           </button>
         </div>
@@ -144,7 +145,7 @@ export default function Navbar() {
         <></>
       )}
       {showCart ? (
-        <div className="motion-preset-slide-left fixed right-2 z-50 h-2/3 mt-3 flex sm:w-100 w-75 flex-col border-2 border-black bg-white p-3 shadow-xl">
+        <div className="motion-preset-slide-left fixed right-2 z-50 h-2/3 mt-3 flex sm:w-100 w-75 flex-col border-2 border-black bg-white p-3 dark:bg-indigo-950 shadow-xl dark:text-white">
           <CartItems setShowCart={setShowCart} />
         </div>
       ) : (

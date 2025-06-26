@@ -18,8 +18,8 @@ export default async function ProductDetail({ params }) {
   return (
     <>
       <div className="h-1/2 w-full p-10 pt-35">
-        <div className="flex h-full w-full flex-col items-center justify-center gap-10 rounded-2xl bg-white p-15 md:flex-row">
-          <div className="relative h-full border-2 border-gray-400/50 p-10">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-10 rounded-2xl bg-white dark:bg-gray-500/50 dark:text-white p-15 md:flex-row">
+          <div className="relative h-full border-2 border-gray-400/50 dark:border-neutral-200 p-10">
             <Image
               src={product.image_URL}
               alt="product"
@@ -33,7 +33,7 @@ export default async function ProductDetail({ params }) {
                 {product.brand}
               </h2>
               <h3 className="truncate text-2xl lg:text-4xl">{product.name}</h3>
-              <p className="text-background3 truncate lg:text-3xl">
+              <p className="text-background3 dark:text-background2 truncate lg:text-3xl">
                 {formatPrice(product.price)}
               </p>
             </div>

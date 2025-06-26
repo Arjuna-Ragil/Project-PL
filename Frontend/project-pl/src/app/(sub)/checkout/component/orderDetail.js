@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
 import { useCheckoutNav } from "@/app/hooks/useCheckoutNav";
 import Summary from "./summary";
 
 export default function OrderDetail({ show }) {
-  const { setPay, setDetail, setPlace } = useCheckoutNav()
+  const { setPay, setDetail, setPlace } = useCheckoutNav();
 
   return (
     <div
@@ -64,11 +64,16 @@ export default function OrderDetail({ show }) {
               className="focus:border-select border-1 p-3 focus:outline-0"
             />
           </div>
-          <button className="bg-background3 hover:bg-background3/70 p-3 text-3xl text-white" onClick={() => {setPay(true), setDetail(false), setPlace(false)}}>
+          <button
+            className="bg-background3 hover:bg-background3/70 p-3 text-3xl text-white"
+            onClick={() => {
+              setPay(true), setDetail(false), setPlace(false);
+            }}
+          >
             Next
           </button>
         </div>
-        <Summary/>
+        <Summary />
       </div>
     </div>
   );

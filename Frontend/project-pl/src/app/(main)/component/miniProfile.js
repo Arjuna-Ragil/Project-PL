@@ -6,21 +6,24 @@ export default function MiniProfile() {
   const { account } = useAccount()
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2 rounded-lg bg-white p-3 shadow-xl">
+    <div className="flex flex-col items-center justify-center gap-2 rounded-lg bg-white dark:bg-indigo-950 dark:text-white p-3 shadow-xl">
       <Image
         src={"/profilePlaceHolder.svg"}
         alt="Profile Picture"
         height={100}
         width={100}
+        className="dark:invert"
       />
       <div className="flex flex-col text-center">
         <p className="truncate text-2xl font-semibold">{account?.name || "Guest"}</p>
         <p className="truncate">@{account?.username || "Guest"}</p>
       </div>
       <div className="flex w-full flex-col items-start justify-start gap-2 border-b-2 p-1">
-        <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
-          My Orders
-        </button>
+        <Link href={"/order"}>
+          <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
+            My Orders
+          </button>
+        </Link>
         <Link href={"/setting"}>
           <button className="hover:bg-select/10 rounded-lg p-3 duration-300">
             Setting

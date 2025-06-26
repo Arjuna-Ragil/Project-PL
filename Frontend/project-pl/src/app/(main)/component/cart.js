@@ -64,16 +64,16 @@ export default function CartItems({ setShowCart}) {
   return (
     <>
       <div className="flex flex-row items-center justify-between">
-        <h2 className="text-3xl font-semibold">CART</h2>
+        <h2 className="text-3xl font-semibold p-1">CART</h2>
         <button onClick={() => setShowCart(false)}>
-          <Image src={"/closeIcon.svg"} alt="close" height={30} width={30} />
+          <Image src={"/closeIcon.svg"} alt="close" height={30} width={30} className="dark:invert"/>
         </button>
       </div>
       <div className="flex-1 space-y-3 overflow-y-auto">
         {cart.map((item) => (
           <div
             key={item.product_id}
-            className="h-35 w-full border-b-2 border-gray-600/50 bg-white p-2"
+            className="h-35 w-full border-b-2 border-gray-600/50 dark:border-neutral-200 bg-white dark:bg-transparent p-2"
           >
             <div className="grid grid-cols-3 items-center gap-5 sm:p-3 ">
               <div className="relative flex h-[100px] w-[100px] items-center justify-center border-1 border-gray-400/50">
@@ -88,13 +88,13 @@ export default function CartItems({ setShowCart}) {
                 <div className="flex flex-col">
                   <p className="font-bold">{item.brand}</p>
                   <p>{item.name}</p>
-                  <p className="text-background3">{formatPrice(item.price)}</p>
+                  <p className="text-background3 dark:text-background2">{formatPrice(item.price)}</p>
                 </div>
                 <div className="flex flex-row items-center justify-end gap-3">
-                  <Image src={"/deleteIcon.svg"} alt="delete" width={25} height={25} className="aspect-square p-1 bg-select/50 hover:bg-select rounded-full" onClick={() => deleteToCart(item.product_id)}/>
-                  <Image src={"/minusIcon.svg"} alt="remove" width={25} height={25} className="aspect-square p-1 bg-select/50 hover:bg-select rounded-full" onClick={() => updateToCart(item.product_id, "-")}/>
+                  <Image src={"/deleteIcon.svg"} alt="delete" width={25} height={25} className="aspect-square p-1 bg-select/50 dark:bg-select hover:bg-select dark:hover:bg-select/50 rounded-full" onClick={() => deleteToCart(item.product_id)}/>
+                  <Image src={"/minusIcon.svg"} alt="remove" width={25} height={25} className="aspect-square p-1 bg-select/50 dark:bg-select hover:bg-select dark:hover:bg-select/50 rounded-full" onClick={() => updateToCart(item.product_id, "-")}/>
                   <p>{item.quantity}</p>
-                  <Image src={"/plusIcon.svg"} alt="add" width={25} height={25} className="p-1 bg-select/50 hover:bg-select rounded-full" onClick={() => updateToCart(item.product_id, "+")}/>
+                  <Image src={"/plusIcon.svg"} alt="add" width={25} height={25} className="p-1 bg-select/50 dark:bg-select hover:bg-select dark:hover:bg-select/50 rounded-full" onClick={() => updateToCart(item.product_id, "+")}/>
                 </div>
               </div>
             </div>

@@ -32,13 +32,14 @@ export default function EditProfile({ show }) {
             alt="profile"
             width={100}
             height={100}
+            className="dark:invert"
           />
         </div>
       </div>
       <div className="flex flex-col gap-3">
         <div className="flex flex-row justify-between gap-5">
           <div className="flex w-full flex-col gap-2">
-            <p className="text-background3">First Name</p>
+            <p className="text-background3 dark:text-background2">First Name</p>
             <input
               type="text"
               placeholder="First Name"
@@ -48,7 +49,7 @@ export default function EditProfile({ show }) {
             />
           </div>
           <div className="flex w-full flex-col gap-2">
-            <p className="text-background3">Last Name</p>
+            <p className="text-background3 dark:text-background2">Last Name</p>
             <input
               type="text"
               placeholder="Last Name"
@@ -59,7 +60,7 @@ export default function EditProfile({ show }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-background3">Username</p>
+          <p className="text-background3 dark:text-background2">Username</p>
           <input
             type="text"
             placeholder="Username"
@@ -69,7 +70,7 @@ export default function EditProfile({ show }) {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-background3">Email</p>
+          <p className="text-background3 dark:text-background2">Email</p>
           <input
             type="email"
             placeholder="Email"
@@ -79,7 +80,7 @@ export default function EditProfile({ show }) {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-background3">Phone Number</p>
+          <p className="text-background3 dark:text-background2">Phone Number</p>
           <input
             type="tel"
             placeholder="Phone Number"
