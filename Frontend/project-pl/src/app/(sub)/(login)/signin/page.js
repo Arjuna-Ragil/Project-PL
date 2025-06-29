@@ -6,6 +6,8 @@ import Link from "next/link";
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -39,11 +41,13 @@ export default function SignInPage() {
         <div className="bg-white bg-opacity-95 rounded-xl shadow-lg w-full max-w-md p-10">
           <h2 className="text-2xl font-medium mb-8">Sign In</h2>
 
-          <form action="#" method="POST" className="space-y-6">
+          <div className="space-y-6">
             <input
               type="text"
               name="identifier"
-              placeholder="Email or Phone Number*"
+              placeholder="Email*"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-full border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
               required
             />
@@ -54,6 +58,8 @@ export default function SignInPage() {
                 name="password"
                 id="password"
                 placeholder="Password*"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-full border border-gray-300 px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-pink-300"
                 required
               />
@@ -77,17 +83,12 @@ export default function SignInPage() {
               </button>
             </div>
 
-            <div className="flex justify-end">
-              <a href="#" className="text-sm text-gray-700 hover:underline">Forgot password?</a>
-            </div>
-
             <button
-              type="submit"
               className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-full py-3"
             >
               SIGN IN
             </button>
-          </form>
+          </div>
 
           <p className="text-center text-sm mt-6">
             Don’t have an account?{" "}

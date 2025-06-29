@@ -1,11 +1,14 @@
 "use client";
 
+import { useProduct } from "@/app/hooks/useProduct";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function FlashSaleList({type, amount}) {
-  const [products, setProducts] = useState([]);
+
+  const { products } = useProduct()
+  
 
   function formatPrice(price) {
     return new Intl.NumberFormat("id-ID", {
@@ -15,20 +18,6 @@ export default function FlashSaleList({type, amount}) {
       maximumFractionDigits: 0,
     }).format(price);
   }
-
-  useEffect(() => {
-    async function fetchProduct() {
-      try {
-        const res = await fetch("http://localhost:8000/products");
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchProduct();
-  }, []);
 
   return (
     <>

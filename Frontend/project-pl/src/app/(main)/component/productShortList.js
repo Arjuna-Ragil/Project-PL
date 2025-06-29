@@ -2,15 +2,16 @@
 
 import ShortPopup from "@/app/component/shortPopup";
 import { useCart } from "@/app/hooks/useCart";
+import { useProduct } from "@/app/hooks/useProduct";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function ProductShortList() {
 
   const { cart, setCart } = useCart()
+  const { products } = useProduct()
 
-  const [products, setProducts] = useState([]);
   const [showNotif, setShowNotif] = useState(false)
 
   function formatPrice(price) {
@@ -21,20 +22,6 @@ export default function ProductShortList() {
       maximumFractionDigits: 0,
     }).format(price);
   }
-
-  useEffect(() => {
-    async function fetchProduct() {
-      try {
-        const res = await fetch("http://localhost:8000/products");
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchProduct();
-  }, []);
 
   async function addToCart(productId) {
     try {
