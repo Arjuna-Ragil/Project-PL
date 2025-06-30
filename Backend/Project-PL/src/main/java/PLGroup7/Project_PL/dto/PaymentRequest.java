@@ -1,5 +1,9 @@
 package PLGroup7.Project_PL.dto;
 
-public class PaymentRequest {
+import lombok.Data;
 
+@Data
+public class PaymentRequest {
+    private String metode;
+    private double total;
 }

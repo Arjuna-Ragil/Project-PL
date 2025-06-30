@@ -11,6 +11,29 @@ export default function SignInPage() {
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setErrorMsg("");
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body: JSON.stringify(FormData)
+      });
+
+      if (!response.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Login gagal");
+      }
+
+      const data = await res.json();
+      localStorage.setItem('token', data.token);
+      router.push('/homepage');
+    } catch (error) {
+      setErrorMsg(error.message || "Terjadi kesalahan saat login");
+    }
+  }
   };
 
   return (

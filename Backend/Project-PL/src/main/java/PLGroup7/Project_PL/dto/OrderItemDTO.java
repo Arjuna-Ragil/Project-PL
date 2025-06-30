@@ -1,5 +1,9 @@
 package PLGroup7.Project_PL.dto;
 
-public class OrderItemDTO {
+import lombok.Data;
 
+@Data
+public class OrderItemDTO {
+    private Long produkId;
+    private int quantity;
 }
