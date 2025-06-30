@@ -1,11 +1,14 @@
 "use client";
 
+import { useProduct } from "@/app/hooks/useProduct";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function FlashSaleList({type, amount}) {
-  const [products, setProducts] = useState([]);
+
+  const { products } = useProduct()
+  
 
   function formatPrice(price) {
     return new Intl.NumberFormat("id-ID", {
@@ -16,33 +19,19 @@ export default function FlashSaleList({type, amount}) {
     }).format(price);
   }
 
-  useEffect(() => {
-    async function fetchProduct() {
-      try {
-        const res = await fetch("http://localhost:8000/products");
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchProduct();
-  }, []);
-
   return (
     <>
       {products.slice(0, amount).map((product) => (
-        <div key={product.product_id}>
-          <Link href={`/products/${product.product_id}`}>
-            <div className="hover:border-select hover:scale-105 relative h-full w-full rounded-2xl border-2 border-gray-600/50 bg-white p-2 duration-300 hover:border-4 hover:shadow-xl">
-              <Image
-                src={"/addIcon.svg"}
-                alt="add"
-                width={20}
-                height={20}
-                className="hover:bg-select justify-self-end rounded-full p-1 transition-colors duration-300"
-              />
+        <div key={product.product_id} className="dark:text-white">
+          <div className="hover:border-select hover:scale-105 relative h-full w-full rounded-2xl border-2 border-gray-600/50 dark:border-neutral-200 bg-white dark:bg-gray-500/50 p-2 duration-300 hover:border-4 hover:shadow-xl">
+            <Image
+              src={"/addIcon.svg"}
+              alt="add"
+              width={20}
+              height={20}
+              className="hover:bg-select dark:hover:bg-green-900 justify-self-end rounded-full p-1 transition-colors duration-300 dark:invert"
+            />
+            <Link href={`/products/${product.product_id}`}>
               <div className="flex flex-col gap-2 md:p-3">
                 <div className="relative flex h-[90px] w-auto items-center justify-center border-b-2 pb-1 md:h-[140px]">
                   <Image
@@ -61,8 +50,8 @@ export default function FlashSaleList({type, amount}) {
                   </p>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       ))}
       <Link href={"/products/flashsale"} className={` ${type} `}>

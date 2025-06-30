@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <div className="grid h-full w-full md:grid-cols-2 flex-col max-md:items-center max-md:justify-center max-md:text-center md:gap-10 bg-white p-5">
+    <div className="grid h-full w-full md:grid-cols-2 flex-col max-md:items-center max-md:justify-center max-md:text-center md:gap-10 bg-white dark:bg-gray-500/50 dark:text-white p-5">
       <div className="flex w-full flex-col gap-5 md:border-r-2 p-5 text-justify">
         <h2 className="md:w-fit w-full border-b-2 text-3xl text-center p-1">About Us</h2>
         <p>
@@ -25,18 +26,23 @@ export default function Footer() {
         <h2 className="md:text-3xl text-lg font-bold">
           REGISTER YOUR EMAIL FOR NEWS AND SPECIAL OFFERS
         </h2>
-        <div className="group relative z-30">
-          <div className="from-background1 to-background2 flex md:w-2/3 w-full flex-row items-center justify-between bg-gradient-to-r from-10% p-3 transition-all duration-200 not-group-hover:translate-2">
-            <button>SIGN UP</button>
-            <Image
-              src={"/redirectIcon.svg"}
-              alt="Arrow Icon"
-              width={50}
-              height={50}
-            />
+        <Link href={"/signup"}>
+          <div className="group relative z-30">
+            <div className="from-background1 to-background2 dark:from-backgroundDark2 dark:to-backgroundDark3 flex md:w-2/3 w-full flex-row items-center justify-between bg-gradient-to-r from-10% p-3 transition-all duration-200 not-group-hover:translate-2">
+                <button>
+                  SIGN UP
+                </button>
+              <Image
+                src={"/redirectIcon.svg"}
+                alt="Arrow Icon"
+                width={50}
+                height={50}
+                className="dark:invert"
+              />
+            </div>
+            <div className="bg-select dark:bg-select/20 absolute -bottom-3 left-3 -z-10 h-15 w-2/3 opacity-0 transition-all duration-200 group-hover:opacity-100"></div>
           </div>
-          <div className="bg-select absolute -bottom-3 left-3 -z-10 h-15 w-2/3 opacity-0 transition-all duration-200 group-hover:opacity-100"></div>
-        </div>
+        </Link>
         <h3 className="mt-3 md:w-fit w-full border-b-2 text-3xl p-1">More Inspiration</h3>
         <div className="flex flex-row gap-5 max-md:justify-center">
           <button className="hover:bg-background1 rounded-xl duration-200">
@@ -45,6 +51,7 @@ export default function Footer() {
               alt="tiktok"
               height={50}
               width={50}
+              className="dark:invert"
             />
           </button>
           <button className="hover:bg-background2 rounded-xl duration-200">
@@ -53,10 +60,11 @@ export default function Footer() {
               alt="Instagram"
               height={50}
               width={50}
+              className="dark:invert"
             />
           </button>
           <button className="hover:bg-background3 rounded-md duration-200">
-            <Image src={"/xIcon.svg"} alt="X" height={50} width={50} />
+            <Image src={"/xIcon.svg"} alt="X" height={50} width={50} className="dark:invert"/>
           </button>
         </div>
       </div>

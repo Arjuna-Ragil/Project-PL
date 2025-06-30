@@ -11,7 +11,7 @@ export default function Hero() {
       modules={[Autoplay]}
       autoplay={{ delay: 10000, disableOnInteraction: false }}
       loop={true}
-      className="sm:mt-20 mt-17 lg:h-130 md:h-80 sm:h-50 h-35 2xl:w-[1440px] w-full mx-auto bg-white/70 backdrop-blur-3xl"
+      className="sm:mt-22 mt-17 lg:h-130 md:h-80 sm:h-50 h-35 2xl:w-[1440px] w-full mx-auto bg-white/70 backdrop-blur-3xl dark:brightness-90"
     >
       <SwiperSlide>
         <div className="h-full bg-[url('/hero1.svg')] max-xl:bg-contain bg-no-repeat bg-center"></div>
