@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import PLGroup7.Project_PL.model.Produk;
@@ -28,5 +29,14 @@ public class ProdukController {
         return produkService.getProdukById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping("/filter")
+    public List<Produk> getProdukByKategori(@RequestParam(required = false) String kategori) {
+        if (kategori != null && !kategori.isEmpty()) {
+            return produkService.getProdukByKategori(kategori);
+        } else {
+            return produkService.getAllProduks(); 
+        }
     }
 }

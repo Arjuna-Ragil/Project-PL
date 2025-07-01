@@ -22,6 +22,10 @@ public class ProdukService {
         return produkRepository.findById(id);
     }
 
+    public List<Produk> getProdukByKategori(String kategori) {
+        return produkRepository.findByKategoriIgnoreCase(kategori);
+    }
+
     public Produk createProduk(Produk produk) {
         return produkRepository.save(produk);
     }

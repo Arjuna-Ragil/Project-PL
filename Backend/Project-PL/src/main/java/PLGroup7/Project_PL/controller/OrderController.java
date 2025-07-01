@@ -27,7 +27,7 @@ import PLGroup7.Project_PL.service.OrderService;
 import PLGroup7.Project_PL.service.PaymentService;
 
 @RestController
-@RequestMapping("/api/customer/order")
+@RequestMapping("/api/cart")
 @PreAuthorize("hasRole('CUSTOMER')")
 public class OrderController {
     @Autowired

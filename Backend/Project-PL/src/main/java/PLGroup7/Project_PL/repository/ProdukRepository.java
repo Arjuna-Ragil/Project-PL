@@ -13,4 +13,6 @@ public interface ProdukRepository extends JpaRepository<Produk, Long>{
     List<Produk> findByKategoriId(Long kategoriId);
 
     Optional<Produk> findById(Integer id);
+
+    List<Produk> findByKategoriIgnoreCase(String kategori);
 }
