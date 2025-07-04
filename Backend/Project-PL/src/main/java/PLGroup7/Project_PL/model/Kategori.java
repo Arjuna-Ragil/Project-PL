@@ -20,9 +20,9 @@ import lombok.Setter;
 public class Kategori {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idKategori;
+    private Long id;
 
-    private String namaKategori;
+    private String nama;
 
     @OneToMany(mappedBy = "kategori")
     private List<Produk> produk;

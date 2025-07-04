@@ -24,11 +24,12 @@ export default function SignInPage() {
 
       if (!response.ok) {
         const err = await res.json();
+        const token = data.token;
         throw new Error(err.message || "Login gagal");
       }
 
       const data = await res.json();
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIEJhcnUiLCJpYXQiOjE3NTE2MjI0MzAsImV4cCI6MTc1MTcwODgzMH0.96sQEI4WJu-sMgnOXTVi__uaSVcACQG0pjomhVXyCMU");
       router.push('/homepage');
     } catch (error) {
       setErrorMsg(error.message || "Terjadi kesalahan saat login");

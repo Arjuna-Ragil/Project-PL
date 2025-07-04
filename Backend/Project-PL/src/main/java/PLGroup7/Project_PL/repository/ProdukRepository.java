@@ -12,7 +12,7 @@ import PLGroup7.Project_PL.model.Produk;
 public interface ProdukRepository extends JpaRepository<Produk, Long>{
     List<Produk> findByKategoriId(Long kategoriId);
 
-    Optional<Produk> findById(Integer id);
+    Optional<Produk> findByIdProduk(Integer id);
 
-    List<Produk> findByKategoriIgnoreCase(String kategori);
+    List<Produk> findByKategoriNamaIgnoreCase(String namaKategori);
 }
