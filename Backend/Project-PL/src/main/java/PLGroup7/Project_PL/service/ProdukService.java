@@ -33,7 +33,7 @@ public class ProdukService {
     public Produk updateProduk(Long id, Produk updatedProduk) {
         return produkRepository.findById(id).map(produk -> {
             produk.setNamaProduk(updatedProduk.getNamaProduk());
-            produk.setDeskripsi(updatedProduk.getDeskripsi());
+            produk.setBrand(updatedProduk.getBrand());
             produk.setHarga(updatedProduk.getHarga());
             produk.setKategori(updatedProduk.getKategori());
             return produkRepository.save(produk);

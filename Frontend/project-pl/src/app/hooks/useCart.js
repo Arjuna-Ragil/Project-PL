@@ -22,14 +22,14 @@ export function CartProvider({ children }) {
         const index = prev.findIndex(item => item.idProduk === produk.id);
         if (index >= 0) {
           updatedCart[index].quantity += 1;
-          return updated;
+          return updatedCart;
         }
         return [...prev, {idProduk: produk.id, quantity: 1}];
       });
     };
 
     const removeFromCart = (produk) => {
-      setCart(prev => prev.filter((item) => item.idProduk !== idProduk));
+      setCart(prev => prev.filter((item) => item.idProduk !== produk.id));
     };
 
     const checkout = async () => {

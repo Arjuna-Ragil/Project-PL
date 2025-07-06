@@ -1,7 +1,21 @@
+'use client';
+
 import Footer from "../component/footer";
 import ProductShortList from "../component/productShortList";
+import { useProduct } from "../../hooks/useProduct";
 
 export default function ProductPage() {
+    const { produk, loading, error } = useProduct();
+
+    const groupedProduk = produk.reduce((acc, item) => {
+        const kategori = item.kategori?.toLowerCase() || 'other';
+        if (!acc[kategori]) acc[kategori] = [];
+        acc[kategori].push(item);
+        return acc;
+    }, {});
+
+    if (loading) return <div className="p-10">Loading...</div>
+    if (error) return <div className="p-10">Error: {error}</div>
     return(
         <>
         <div className="p-10 flex flex-col gap-2 pt-30">

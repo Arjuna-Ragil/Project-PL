@@ -25,7 +25,7 @@ public class Produk {
     private Long idProduk;
 
     private String namaProduk;
-    private String deskripsi;
+    private String brand;
     private double harga;
     private Integer stok;
     private String imageUrl;

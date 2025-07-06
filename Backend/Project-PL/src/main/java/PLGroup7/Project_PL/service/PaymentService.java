@@ -28,6 +28,11 @@ public class PaymentService {
         payment.setMetode(metode);
         payment.setTotal(total);
 
-        return paymentRepository.save(payment);
+        Payment saved = paymentRepository.save(payment);
+
+        order.setStatus(PLGroup7.Project_PL.model.OrderStatus.PAID);
+        orderRepository.save(order);
+
+        return saved;
     }
 }

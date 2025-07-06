@@ -26,8 +26,10 @@ export default function ProductShortList() {
   async function addToCart(productId) {
     try {
       const product = products.find((product) => product.product_id === productId)
-      if (product) {
-        const existingProduct = cart.find((item) => item.product_id === product.product_id)
+      if (!product) {
+        return console.warn("Product not found"); 
+
+        const existing = cart.find((item) => item.product_id === productId);
         
         let newCart;
 
@@ -48,7 +50,7 @@ export default function ProductShortList() {
 
       setShowNotif(true)
 
-      const res = await fetch("http://localhost:8000/cart", {
+      const res = await fetch("http://localhost:8080/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +58,7 @@ export default function ProductShortList() {
         body: JSON.stringify({ product_id: productId })
       })
     } catch (error) {
-      console.error(error)
+      console.error("Gagal menambahkan ke cart", error);
     }
   }
 

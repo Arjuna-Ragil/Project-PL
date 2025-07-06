@@ -1,11 +1,46 @@
 "use client";
 
 import { useCheckoutNav } from "@/app/hooks/useCheckoutNav";
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
 import Summary from "./summary";
 import Image from "next/image";
 
 export default function OrderPayment({ show }) {
   const { setPay, setDetail, setPlace } = useCheckoutNav();
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get("orderId");
+
+  const handlePayment = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("You must be logged in to make a payment.");
+        return;
+      }
+
+      const response = await axios.post(
+        `http://localhost:8080/api/orders/${orderId}/payment`,
+        {
+          metode: "Xendit",
+          total: 100000, // Replace with actual total amount
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        }
+      );
+
+      alert("Payment successful!");
+      setPlace();
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("Pembayaran gagal");
+    }
+  };
+
+  if (!show) return null;
 
   return (
     <div

@@ -1,11 +1,12 @@
 'use client'
 
-const { createContext, useState, useContext, useEffect } = require("react");
+import { createContext, useState, useContext, useEffect } from 'react';
 
-const ProdukContext = createContext()
+const ProdukContext = createContext();
 
 export function ProductProvider({ children }) {
-    const [produk, setProduct] = useState([]);
+    const [produk, setProduk] = useState([]);
+    const [groupedProduk, setGroupedProduk] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -15,9 +16,19 @@ export function ProductProvider({ children }) {
             const res = await fetch("http://localhost:8080/api/produk");
             if (!res.ok) throw new Error(`gagal memuat produk`);
             const data = await res.json();
-            setProduct(data);
+            setProduk(data);
+
+            const grouped = data.reduce((acc, item) => {
+              const kategori = item.kategori?.toLowerCase() || 'other';
+              if (!acc[kategori]) acc[kategori] = [];
+              acc[kategori].push(item);
+              return acc;
+            }, {});
+            setGroupedProduk(grouped);
+            
           } catch (error) {
             console.error(error);
+            setError(error.message);
           } finally {
             setLoading(false);
           }
