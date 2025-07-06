@@ -16,12 +16,12 @@ export function CartProvider({ children }) {
       localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
 
-    const addToCart = (produk) => {
+    const addToCart = async (produk) => {
+        const updatedCart = [...cart];
       setCart(prev => {
         const index = prev.findIndex(item => item.idProduk === produk.id);
         if (index >= 0) {
-          const updated = [...prev];
-          updated[index].quantity += 1;
+          updatedCart[index].quantity += 1;
           return updated;
         }
         return [...prev, {idProduk: produk.id, quantity: 1}];
@@ -34,7 +34,7 @@ export function CartProvider({ children }) {
 
     const checkout = async () => {
       try {
-         const res = await fetch("http://localhost:8000/api/cart", {
+         const res = await fetch("http://localhost:8080/api/cart", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

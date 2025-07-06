@@ -3,8 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import useSignIn from "@/app/hooks/useSignIn";
 
 export default function SignInPage() {
+  const handleLogin = (e) => {
+  e.preventDefault(); // Hindari reload
+  login(email, password);
+};
+
+
+  const { login, loading, error } = useSignIn();
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -12,29 +21,7 @@ export default function SignInPage() {
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setErrorMsg("");
-    try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: 'POST',
-        headers: { 'Content-Type' : 'application/json' },
-        body: JSON.stringify(FormData)
-      });
-
-      if (!response.ok) {
-        const err = await res.json();
-        const token = data.token;
-        throw new Error(err.message || "Login gagal");
-      }
-
-      const data = await res.json();
-      localStorage.setItem('token', "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIEJhcnUiLCJpYXQiOjE3NTE2MjI0MzAsImV4cCI6MTc1MTcwODgzMH0.96sQEI4WJu-sMgnOXTVi__uaSVcACQG0pjomhVXyCMU");
-      router.push('/homepage');
-    } catch (error) {
-      setErrorMsg(error.message || "Terjadi kesalahan saat login");
-    }
-  }
+  
   };
 
   return (
@@ -109,6 +96,7 @@ export default function SignInPage() {
 
             <button
               className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-full py-3"
+              onClick={() => login(email, password)}
             >
               SIGN IN
             </button>

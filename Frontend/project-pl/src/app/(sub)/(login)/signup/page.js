@@ -3,14 +3,37 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import useSignUp from "@/app/hooks/useSignUp";
+
 
 export default function SignUpPage() {
+  const { register, loading, error } = useSignUp();
+  const [formData, setFormData] = useState({
+    nama : "",
+    username :"",
+    email : "",
+    password : "",
+    no_telp : "",
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const inputClass =
     "w-full rounded-full border border-gray-300 px-4 py-2 focus:border-pink-500 focus:outline-none";
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+    register(formData); 
+  };
+  
   return (
     <div className="min-h-screen flex flex-col bg-[url('/bg.svg')] bg-cover bg-center font-sans relative">
 
@@ -39,19 +62,22 @@ export default function SignUpPage() {
         <div className="bg-white bg-opacity-95 rounded-xl shadow-lg w-full max-w-md p-10">
           <h2 className="text-2xl font-medium mb-8">Sign Up</h2>
 
-          <form action="#" method="POST" className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex gap-2">
-              <input type="text" placeholder="First name*" required className={`w-1/2 ${inputClass}`} />
-              <input type="text" placeholder="Last name*" required className={`w-1/2 ${inputClass}`} />
+              <input type="text" name="firstName" value={formData.firstName || ""} onChange={handleChange} placeholder="First name*" required className={`w-1/2 ${inputClass}`} />
+              <input type="text" name="lastName" value={formData.lastName || ""} onChange={handleChange} placeholder="Last name*" required className={`w-1/2 ${inputClass}`} />
             </div>
-            <input type="text" placeholder="Username*" required className={inputClass} />
-            <input type="email" placeholder="Email*" required className={inputClass} />
-            <input type="tel" placeholder="Phone Number*" required className={inputClass} />
+            <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Username*" required className={inputClass} />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email*" required className={inputClass} />
+            <input type="tel" name="no_telp" value={formData.no_telp} onChange={handleChange} placeholder="Phone Number*" required className={inputClass} />
 
             {/* Password */}
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="Password*"
                 required
                 className={`${inputClass} pr-10`}
@@ -69,6 +95,8 @@ export default function SignUpPage() {
             <div className="relative">
               <input
                 type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password*"
                 required
                 className={`${inputClass} pr-10`}

@@ -5,17 +5,17 @@ const { createContext, useState, useContext, useEffect } = require("react");
 const ProdukContext = createContext()
 
 export function ProductProvider({ children }) {
-    const [produk, setProduk] = useState([]);
+    const [produk, setProduct] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchProduk() {
+        async function fetchProduct() {
           try {
             const res = await fetch("http://localhost:8080/api/produk");
             if (!res.ok) throw new Error(`gagal memuat produk`);
             const data = await res.json();
-            setProduk(data);
+            setProduct(data);
           } catch (error) {
             console.error(error);
           } finally {
@@ -23,7 +23,7 @@ export function ProductProvider({ children }) {
           }
         }
     
-        fetchProduk();
+        fetchProduct();
       }, []);
 
       return(
@@ -33,7 +33,7 @@ export function ProductProvider({ children }) {
       );
 }
 
-export function useProduk() {
+export function useProduct() {
     const context = useContext(ProdukContext);
     if (!context) {
         throw new Error("useProduk must be used within a ProductProvider");
