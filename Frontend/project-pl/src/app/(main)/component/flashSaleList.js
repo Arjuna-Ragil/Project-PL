@@ -1,14 +1,18 @@
 "use client";
 
+import ShortPopup from "@/app/component/shortPopup";
+import { useCart } from "@/app/hooks/useCart";
 import { useProduct } from "@/app/hooks/useProduct";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function FlashSaleList({type, amount}) {
 
   const { products } = useProduct()
-  
+  const { cart, setCart } = useCart()
+
+  const [showNotif, setShowNotif] = useState(false)
 
   function formatPrice(price) {
     return new Intl.NumberFormat("id-ID", {
@@ -17,6 +21,43 @@ export default function FlashSaleList({type, amount}) {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
+  }
+
+  async function addToCart(productId) {
+    try {
+      const product = products.find((product) => product.product_id === productId)
+      if (product) {
+        const existingProduct = cart.find((item) => item.product_id === product.product_id)
+        
+        let newCart;
+
+        if (existingProduct) {
+          newCart = cart.map((item) =>
+            item.product_id === productId
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          newCart = [...cart, { ...product, quantity: 1 }];
+        }
+
+        setCart(newCart)
+      } else {
+        console.log("no product")
+      }
+
+      setShowNotif(true)
+
+      const res = await fetch("http://localhost:8000/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ product_id: productId })
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -30,6 +71,7 @@ export default function FlashSaleList({type, amount}) {
               width={20}
               height={20}
               className="hover:bg-select dark:hover:bg-green-900 justify-self-end rounded-full p-1 transition-colors duration-300 dark:invert"
+              onClick={() => addToCart(product.product_id)}
             />
             <Link href={`/products/${product.product_id}`}>
               <div className="flex flex-col gap-2 md:p-3">
@@ -66,6 +108,9 @@ export default function FlashSaleList({type, amount}) {
           />
         </button>
       </Link>
+      <div className="flex w-full items-center justify-center">
+        <ShortPopup isOpen={showNotif} setIsOpen={setShowNotif} />
+      </div>
     </>
   );
 }
