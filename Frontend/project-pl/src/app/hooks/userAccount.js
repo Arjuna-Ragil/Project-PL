@@ -18,7 +18,7 @@ export function AccountProvider({ children }) {
 
         async function fetchData() {
           try {
-            const res = await fetch("http://localhost:8080/user/2", {
+            const res = await fetch("http://localhost:8080/api/user/profile", {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 }

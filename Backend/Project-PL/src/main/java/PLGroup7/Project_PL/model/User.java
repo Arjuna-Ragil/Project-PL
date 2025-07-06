@@ -18,4 +18,13 @@ public class User {
     private String email;
     private String no_telp;
     private String password;
+
+public String getFullName() {
+    return nama;
+}
+
+public String getPhoneNumber() {
+    return no_telp;
+}
+
 }

@@ -15,7 +15,7 @@ export default function Account({show}) {
             <div className="flex flex-col gap-3">
                 <div className="flex flex-col gap-2">
                     <p className="text-background3 dark:text-background2">Full Name</p>
-                    <h3 className="text-2xl">{account?.name}</h3>
+                    <h3 className="text-2xl">{account?.fullName}</h3>
                 </div>
                 <div className="flex flex-col gap-2">
                     <p className="text-background3 dark:text-background2">Username</p>
