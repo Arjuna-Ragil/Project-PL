@@ -24,6 +24,24 @@ export default function SignInPage() {
   
   };
 
+  async function handleSignIn() {
+    try {
+      const res = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          username: email,
+          password: password,
+        }),
+        credentials: "include"
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-[url('/bg.svg')] bg-cover bg-center font-sans">
 
@@ -96,7 +114,6 @@ export default function SignInPage() {
 
             <button
               className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-full py-3"
-              onClick={() => login(email, password)}
             >
               SIGN IN
             </button>
