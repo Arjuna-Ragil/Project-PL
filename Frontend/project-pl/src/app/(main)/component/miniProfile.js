@@ -1,8 +1,10 @@
 import { useAccount } from "@/app/hooks/userAccount";
+import useLogout from "@/app/hooks/useLogout";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function MiniProfile() {
+  const { logout } = useLogout();
   const { account } = useAccount()
 
   return (
@@ -30,7 +32,10 @@ export default function MiniProfile() {
           </button>
         </Link>
       </div>
-      <button className="text-background3 hover:text-select group hover:bg-select/10 flex flex-row gap-3 self-start rounded-2xl p-3 duration-300">
+     <button
+  onClick={logout} 
+  className="text-background3 hover:text-select group hover:bg-select/10 flex flex-row gap-3 self-start rounded-2xl p-3 duration-300"
+>
         <Image
           src={"/logoutIcon.svg"}
           alt="logout"
