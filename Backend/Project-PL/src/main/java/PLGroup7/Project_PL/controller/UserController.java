@@ -33,10 +33,10 @@ public class UserController {
 
         User user = optionalUser.get();
         UserDTO dto = new UserDTO(
-            user.getFullName(), 
+            user.getNama(),               // langsung ambil nama, bukan getFullName()
             user.getUsername(),
             user.getEmail(),
-            user.getNo_telp()
+            user.getNo_telp()             // atau ubah getter menjadi getPhoneNumber()
         );
 
         return ResponseEntity.ok(dto);

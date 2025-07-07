@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import PLGroup7.Project_PL.service.MyUserDetailsService;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -31,6 +32,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     //     this.jwtUtil = jwtUtil;
     //     this.userDetailsService = userDetailsService;
     // }
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -49,10 +53,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     return;
 }
 
-
         String authHeader = request.getHeader("Authorization");
         String token = null;
         String username = null;
+
         List<String> roles = Collections.emptyList();
         List<SimpleGrantedAuthority> authorities = Collections.emptyList();
 
