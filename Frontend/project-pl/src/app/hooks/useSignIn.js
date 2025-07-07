@@ -1,40 +1,37 @@
-"use client";
+"use client"
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function useSignIn() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setErrorMsg] = useState(null);
+  const [error, setError] = useState(null);
+  const router = useRouter();
 
   const login = async (email, password) => {
     setLoading(true);
-    setErrorMsg(null);
-
+    setError(null);
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const res = await fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }), // ⬅️ Pastikan sesuai backend
+        body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json(); // ⬅️ Ambil response-nya
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login gagal.");
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error("Email atau password salah");
       }
 
-      // ✅ Simpan token ke localStorage
-      localStorage.setItem("token", data.token);
+      const data = await res.json(); // pastikan backend kirim token di body
+      localStorage.setItem("token", data.token); // simpan token
 
-      // ✅ Arahkan ke homepage
-      router.push("/products");
-
-    } catch (error) {
-      setErrorMsg(error.message || "Terjadi kesalahan saat login.");
+      router.push("/"); // redirect ke homepage atau dashboard
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(err.message || "Gagal login");
     } finally {
       setLoading(false);
     }

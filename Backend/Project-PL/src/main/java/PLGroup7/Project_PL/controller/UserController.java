@@ -21,6 +21,10 @@ public class UserController {
 
     @GetMapping("/profile")
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).body("Unauthorized: userDetails is null");
+        }
+        
         Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
 
         if (optionalUser.isEmpty()) {

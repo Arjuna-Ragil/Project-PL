@@ -15,18 +15,18 @@ import PLGroup7.Project_PL.repository.*;
 public class CartService {
 
     @Autowired
-    private static OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
     private ProdukRepository produkRepository;
 
     @Autowired
-    private static UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private OrderItemRepository orderItemRepository;
 
-    public static Order getOrCreateCart(String username) {
+    public Order getOrCreateCart(String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User tidak ditemukan"));
 
@@ -49,7 +49,7 @@ public class CartService {
         return cart.getItems().stream().map(item -> {
             OrderResponse response = new OrderResponse();
             OrderResponse.ItemDetail dto = new OrderResponse.ItemDetail();
-            dto.setProdukId(item.getProduk().getIdProduk());
+            dto.setProdukId(item.getProduk().getId());
             dto.setNamaProduk(item.getProduk().getNamaProduk());
             dto.setBrand(item.getProduk().getBrand());
             dto.setKategori(item.getProduk().getKategori().getNama());
@@ -68,7 +68,7 @@ public class CartService {
                 .orElseThrow(() -> new RuntimeException("Produk tidak ditemukan"));
 
         Optional<OrderItem> existingItem = cart.getItems().stream()
-                .filter(i -> i.getProduk().getIdProduk().equals(produkId))
+                .filter(i -> i.getProduk().getId().equals(produkId))
                 .findFirst();
 
         if (existingItem.isPresent()) {
@@ -98,7 +98,6 @@ public class CartService {
     }
 
     public Order save(Order cart) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return orderRepository.save(cart);
     }
 }

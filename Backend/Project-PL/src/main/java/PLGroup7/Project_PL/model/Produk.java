@@ -22,7 +22,7 @@ import lombok.Setter;
 public class Produk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProduk;
+    private Long id;
 
     private String namaProduk;
     private String brand;

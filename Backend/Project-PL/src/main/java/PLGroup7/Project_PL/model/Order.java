@@ -50,4 +50,14 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
 
+private String firstName;
+private String lastName;
+private String email;
+private String phone;
+private String street;
+private String city;
+private String province;
+private String country;
+private String district;
+
 }

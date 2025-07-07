@@ -6,9 +6,9 @@ import org.springframework.boot.SpringApplication;
 
 @SpringBootTest
 class ProjectPlApplicationTests {
-public static void main(String[] args) {
-        SpringApplication.run(ProjectPlApplication.class, args);
-    }
+// public static void main(String[] args) {
+//         SpringApplication.run(ProjectPlApplication.class, args);
+//     }
 	@Test
 	void contextLoads() {
 		

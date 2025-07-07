@@ -22,14 +22,14 @@ import java.util.stream.Collectors;
 public class CheckoutController {
 
     @Autowired
-    private static CartService cartService;
+    private CartService cartService;
 
     @Autowired
     private OrderRepository orderRepository;
 
     @PostMapping
     public ResponseEntity<CheckoutResponse> checkout(@AuthenticationPrincipal UserDetails userDetails) {
-        Order cart = CartService.getOrCreateCart(userDetails.getUsername());
+        Order cart = cartService.getOrCreateCart(userDetails.getUsername());
 
         if (cart.getItems().isEmpty()) {
             return ResponseEntity.badRequest().build();
@@ -46,7 +46,7 @@ public class CheckoutController {
 
         List<CheckoutResponse.ItemDetail> detailList = updatedOrder.getItems().stream().map(item -> {
             CheckoutResponse.ItemDetail detail = new CheckoutResponse.ItemDetail();
-            detail.setProdukId(item.getProduk().getIdProduk());
+            detail.setProdukId(item.getProduk().getId());
             detail.setNamaProduk(item.getProduk().getNamaProduk());
             detail.setQuantity(item.getQuantity());
             detail.setHarga(item.getProduk().getHarga());
