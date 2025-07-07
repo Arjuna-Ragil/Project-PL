@@ -2,9 +2,14 @@
 
 import { useCart } from "@/app/hooks/useCart";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+// import { headers } from "next/headers";
 
 export default function Summary() {
     const { cart } = useCart();
+    const router = useRouter();
+
     const totalAmount = cart.reduce((sum, item) => sum + item.quantity, 0)
     const totalCost = cart.reduce((sum, added) => sum + added.quantity * added.price, 0)
     const totalDelivery = totalCost / 10
@@ -19,6 +24,38 @@ export default function Summary() {
     }).format(price);
   }
 
+  const handlePlaceOrder = async () => {
+    try {
+      const localStorageData = localStorage.getItem("token");
+      if (!token) {
+        alert("harus login dulu");
+        return;
+      }
+
+      const response = await axios.post(
+        "http://localhost:8080/api/orders",
+        {
+            items: cart.map(item => ({
+                produkId: item.product_id,
+                quantity: item.quantity
+            })),
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${localStorageData}`,
+            },
+        }
+      );
+
+      const orderId = response.data.orderId;
+      alert("Order berhasil dibuat");
+      clearCart();
+      router.push(`/checkout/payment?orderId=${orderId}`);
+  } catch (error) {
+    console.error(err);
+    alert("Gagal membuat order. Silakan coba lagi.");
+  }
+};
     return(
         <div className="bg-background1 dark:bg-backgroundDark1 flex flex-col p-2">
           <h2 className="text-2xl font-bold p-2">ORDER SUMMARY:</h2>
@@ -66,7 +103,14 @@ export default function Summary() {
                 </p>
                 <p>{formatPrice(totalFinal)}</p>
             </div>
+            
+            <button
+                onClick={handlePlaceOrder}
+                className="w-full bg-background2 dark:bg-backgroundDark2 text-white font-bold py-2 px-4 rounded mt-3 hover:bg-background3 dark:hover:bg-backgroundDark3"
+                >
+                    Place Order
+                </button>
           </div>
         </div>
-    )
+    );
 }

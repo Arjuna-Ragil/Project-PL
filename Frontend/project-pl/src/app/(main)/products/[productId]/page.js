@@ -3,7 +3,14 @@ import Footer from "../../component/footer";
 
 export default async function ProductDetail({ params }) {
   const { productId } = await params;
-  const res = await fetch(`http://localhost:8000/products/${productId}`);
+  const res = await fetch(`http://localhost:8080/api/produk/${productId}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error(`Gagal memuat produk`);
+  }
+  
   const product = await res.json();
 
   function formatPrice(price) {

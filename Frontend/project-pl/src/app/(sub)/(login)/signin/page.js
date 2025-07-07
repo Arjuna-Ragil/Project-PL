@@ -3,8 +3,19 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import useSignIn from "@/app/hooks/useSignIn";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
+  const router = useRouter();
+  const handleLogin = (e) => {
+  e.preventDefault(); // Hindari reload
+  login(email, password);
+};
+
+
+  const { login, loading, error } = useSignIn();
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -12,25 +23,11 @@ export default function SignInPage() {
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-
-  async function handleSignIn() {
-    try {
-      const res = await fetch("http://localhost:8080/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          username: email,
-          password: password,
-        }),
-        credentials: "include"
-      });
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
+  const handleSignIn = (e) => {
+    e.preventDefault(); // Mencegah reload halaman
+    login(email, password);
+  };
+  
   return (
     <div className="min-h-screen flex flex-col bg-[url('/bg.svg')] bg-cover bg-center font-sans">
 
@@ -102,8 +99,8 @@ export default function SignInPage() {
             </div>
 
             <button
+              onClick={handleSignIn}
               className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-full py-3"
-              onClick={() => handleSignIn()}
             >
               SIGN IN
             </button>

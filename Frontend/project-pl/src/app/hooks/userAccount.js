@@ -10,14 +10,33 @@ export function AccountProvider({ children }) {
     const [account, setAccount] = useState(null)
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+
         async function fetchData() {
           try {
-            const res = await fetch("http://localhost:8000/user/2");
+            const res = await fetch("http://localhost:8080/api/user/profile", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                }
+            });
+
+            if (!res.ok) {
+                throw new Error("Gagal mengambil data akun");
+            }
+
             const data = await res.json();
             setAccount(data);
             setLoading(false)
           } catch (error) {
-            console.error(error);
+            console.error("Gagal fetch account", error);
+          } finally {
+            setLoading(false);
           }
         }
     
