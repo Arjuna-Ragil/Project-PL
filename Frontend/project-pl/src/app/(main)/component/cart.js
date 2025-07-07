@@ -36,7 +36,7 @@ export default function CartItems({ setShowCart}) {
     clearTimeout(debounceTimer.current[productId]);
     debounceTimer.current[productId] = setTimeout(async () => {
     try {
-      const res = await fetch(`http://localhost:8000/cart/${productId}`, {
+      const res = await fetch(`http://localhost:8080/api/cart/${productId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export default function CartItems({ setShowCart}) {
       const updatedCart = cart.filter(item => item.product_id !== productId);
       setCart(updatedCart);
 
-      const res = await fetch(`http://localhost:8080/cart/${productId}`, {
+      const res = await fetch(`http://localhost:8080/api/cart/${productId}`, {
         method: "DELETE",
       })
     } catch (error) {

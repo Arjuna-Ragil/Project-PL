@@ -2,64 +2,93 @@
 
 import { createContext, useState, useEffect, useContext } from "react";
 
-const CartContext = createContext()
+const CartContext = createContext();
 
 export function CartProvider({ children }) {
-    const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-      const stored = localStorage.getItem("cart");
-      if (stored) setCart(JSON.parse(stored));
-    }, []);
-
-    useEffect(() => {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
-
-    const addToCart = async (produk) => {
-        const updatedCart = [...cart];
-      setCart(prev => {
-        const index = prev.findIndex(item => item.idProduk === produk.id);
-        if (index >= 0) {
-          updatedCart[index].quantity += 1;
-          return updatedCart;
-        }
-        return [...prev, {idProduk: produk.id, quantity: 1}];
+  // Ambil cart dari backend
+  const fetchCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:8080/api/cart", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
       });
-    };
+      if (!res.ok) throw new Error("Gagal ambil cart");
 
-    const removeFromCart = (produk) => {
-      setCart(prev => prev.filter((item) => item.idProduk !== produk.id));
-    };
+      const data = await res.json();
+      setCart(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const checkout = async () => {
-      try {
-         const res = await fetch("http://localhost:8080/api/cart", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer ${token}",
-          },
-          body: JSON.stringify({ items: cart }),
-         });
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
-         if (!res.ok) throw new Error("Checkout gagal");
+  // Tambahkan produk ke cart
+  const addToCart = async (produkId, quantity = 1) => {
+    try {
+      const token = localStorage.getItem("token");
 
-         alert("Checkout berhasil");
-         setCart([]);
-         localStorage.removeItem("cart");
-      }catch (error) {
-        alert("Checkout gagal: " + error.message);
-      }
-    };
+      const res = await fetch("http://localhost:8080/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ product_id: produkId, quantity }),
+      });
 
-  return(
-    <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart, checkout}}>
-        {children}
+      if (!res.ok) throw new Error("Gagal tambah produk");
+
+      await fetchCart(); // Refresh cart setelah ditambah
+    } catch (err) {
+      console.error("Gagal tambah ke cart:", err);
+    }
+  };
+
+  // Hapus item (optional: butuh endpoint delete di backend)
+  const removeFromCart = async (produkId) => {
+    setCart(prev => prev.filter((item) => item.produkId !== produkId));
+    // Tambahkan request DELETE ke backend jika endpoint ada
+  };
+
+  // Checkout
+  const checkout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch("http://localhost:8080/api/cart/checkout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Checkout gagal");
+
+      alert("Checkout berhasil!");
+      setCart([]);
+    } catch (error) {
+      alert("Checkout gagal: " + error.message);
+    }
+  };
+
+  return (
+    <CartContext.Provider value={{ cart, setCart, loading, addToCart, removeFromCart, checkout, fetchCart }}>
+      {children}
     </CartContext.Provider>
-  )
+  );
 }
 
 export function useCart() {
-    return useContext(CartContext)
+  return useContext(CartContext);
 }

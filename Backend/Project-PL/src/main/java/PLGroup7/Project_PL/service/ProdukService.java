@@ -19,7 +19,7 @@ public class ProdukService {
     }
 
     public Optional<Produk> getProdukById(Integer id) {
-        return produkRepository.findByIdProduk(id);
+        return produkRepository.findById(id);
     }
 
     public List<Produk> getProdukByKategori(String kategori) {

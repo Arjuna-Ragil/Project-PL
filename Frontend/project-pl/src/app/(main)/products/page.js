@@ -16,6 +16,8 @@ export default function ProductPage() {
 
     if (loading) return <div className="p-10">Loading...</div>
     if (error) return <div className="p-10">Error: {error}</div>
+    if (!products || products.length === 0) return <p>Tidak ada produk</p>
+    
     return(
         <>
         <div className="p-10 flex flex-col gap-2 pt-30">

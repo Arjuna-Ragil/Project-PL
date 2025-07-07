@@ -8,6 +8,17 @@ import lombok.Data;
 
 @Data
 public class CheckoutRequest {
+    
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String street;
+    private String city;
+    private String province;
+    private String country;
+    private String district;
+    
     private List<Item> items;
     
     @Data

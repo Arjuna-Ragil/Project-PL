@@ -1,6 +1,8 @@
 package PLGroup7.Project_PL.controller;
 
+import PLGroup7.Project_PL.dto.CheckoutRequest;
 import PLGroup7.Project_PL.dto.OrderResponse;
+import PLGroup7.Project_PL.dto.ShippingInfoDTO;
 import PLGroup7.Project_PL.model.Order;
 import PLGroup7.Project_PL.model.OrderItem;
 import PLGroup7.Project_PL.model.Produk;
@@ -44,11 +46,11 @@ public class CartController {
     // ✅ Ambil isi cart
     @GetMapping
     public ResponseEntity<List<OrderResponse.ItemDetail>> getCart(@AuthenticationPrincipal UserDetails userDetails) {
-        Order cart = CartService.getOrCreateCart(userDetails.getUsername());
+        Order cart = cartService.getOrCreateCart(userDetails.getUsername());
 
         List<OrderResponse.ItemDetail> response = cart.getItems().stream().map(item -> {
             OrderResponse.ItemDetail dto = new OrderResponse.ItemDetail();
-            dto.setProdukId(item.getProduk().getIdProduk());
+            dto.setProdukId(item.getProduk().getId());
             dto.setNamaProduk(item.getProduk().getNamaProduk());
             dto.setBrand(item.getProduk().getBrand());
             dto.setKategori(item.getProduk().getKategori().getNama());
@@ -71,7 +73,7 @@ public class CartController {
                 ? Integer.valueOf(request.get("quantity").toString())
                 : 1;
 
-        Order cart = CartService.getOrCreateCart(userDetails.getUsername());
+        Order cart = cartService.getOrCreateCart(userDetails.getUsername());
 
         Optional<Produk> produkOpt = produkRepository.findById(produkId);
         if (produkOpt.isEmpty()) {
@@ -80,7 +82,7 @@ public class CartController {
         Produk produk = produkOpt.get();
 
         Optional<OrderItem> existingItem = cart.getItems().stream()
-                .filter(i -> i.getProduk().getIdProduk().equals(produkId))
+                .filter(i -> i.getProduk().getId().equals(produkId))
                 .findFirst();
 
         if (existingItem.isPresent()) {
@@ -101,12 +103,23 @@ public class CartController {
 
     // ✅ Checkout cart
     @PostMapping("/checkout")
-    public ResponseEntity<?> checkoutCart(@AuthenticationPrincipal UserDetails userDetails) {
-        Order cart = CartService.getOrCreateCart(userDetails.getUsername());
+    public ResponseEntity<?> checkoutCart(@AuthenticationPrincipal UserDetails userDetails, @RequestBody CheckoutRequest checkoutRequest) {
+        Order cart = cartService.getOrCreateCart(userDetails.getUsername());
 
         if (cart.getItems().isEmpty()) {
             return ResponseEntity.badRequest().body("Cart masih kosong");
         }
+
+        // Simpan informasi shipping ke dalam order
+    cart.setFirstName(checkoutRequest.getFirstName());
+    cart.setLastName(checkoutRequest.getLastName());
+    cart.setEmail(checkoutRequest.getEmail());
+    cart.setPhone(checkoutRequest.getPhone());
+    cart.setStreet(checkoutRequest.getStreet());
+    cart.setCity(checkoutRequest.getCity());
+    cart.setProvince(checkoutRequest.getProvince());
+    cart.setCountry(checkoutRequest.getCountry());
+    cart.setDistrict(checkoutRequest.getDistrict());
 
         cart.setStatus(OrderStatus.ORDERED);
         cart.setTanggalOrder(LocalDateTime.now());
