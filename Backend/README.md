@@ -23,26 +23,6 @@ Ini adalah backend API yang dikembangkan menggunakan **Spring Boot**. Project in
 
 ```
 
-Backend/
-├── src/
-│   ├── main/
-│   │   ├── java/com/example/yourapp/
-│   │   │   ├── controller/
-│   │   │   ├── model/
-│   │   │   ├── repository/
-│   │   │   ├── service/
-│   │   │   ├── security/ (jika ada)
-│   │   │   └── YourAppApplication.java
-│   │   └── resources/
-│   │       ├── application.properties
-│   │       └── static/
-│   └── test/
-│       └── java/com/example/yourapp/
-├── pom.xml
-└── README.md
-
-````
-
 ---
 
 ## ⚡ Cara Menjalankan
