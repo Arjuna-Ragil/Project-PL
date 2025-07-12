@@ -45,13 +45,12 @@ export default function Footer() {
         </Link>
         <h3 className="mt-3 md:w-fit w-full border-b-2 text-3xl p-1">More Inspiration</h3>
         <div className="flex flex-row gap-5 max-md:justify-center">
-          <button className="hover:bg-background1 rounded-xl duration-200">
-            <Image
+          <button className="hover:bg-background1 rounded-xl duration-200">              <Image
               src={"/tiktokIcon.svg"}
               alt="tiktok"
               height={50}
               width={50}
-              className="dark:invert"
+              className="dark:invert w-auto h-auto"
             />
           </button>
           <button className="hover:bg-background2 rounded-xl duration-200">
@@ -60,11 +59,17 @@ export default function Footer() {
               alt="Instagram"
               height={50}
               width={50}
-              className="dark:invert"
+              className="dark:invert w-auto h-auto"
             />
           </button>
           <button className="hover:bg-background3 rounded-md duration-200">
-            <Image src={"/xIcon.svg"} alt="X" height={50} width={50} className="dark:invert"/>
+            <Image 
+              src={"/xIcon.svg"} 
+              alt="X" 
+              height={50} 
+              width={50} 
+              className="dark:invert w-auto h-auto"
+            />
           </button>
         </div>
       </div>

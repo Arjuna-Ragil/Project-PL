@@ -7,11 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function ProductShortList() {
-
+export default function ProductShortList({ products = [] }) {
   const { cart, setCart } = useCart()
-  const { products } = useProduct()
-
   const [showNotif, setShowNotif] = useState(false)
 
   function formatPrice(price) {
@@ -25,28 +22,27 @@ export default function ProductShortList() {
 
   async function addToCart(productId) {
     try {
-      const product = products.find((product) => product.product_id === productId)
+      const product = products.find((product) => product.id === productId);
       if (!product) {
-        return console.warn("Product not found"); 
-
-        const existing = cart.find((item) => item.product_id === productId);
-        
-        let newCart;
-
-        if (existingProduct) {
-          newCart = cart.map((item) =>
-            item.product_id === productId
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          );
-        } else {
-          newCart = [...cart, { ...product, quantity: 1 }];
-        }
-
-        setCart(newCart)
-      } else {
-        console.log("no product")
+        return console.warn("Product not found");
       }
+
+      const existingItem = cart.find((item) => item.id === productId);
+      
+      let newCart;
+      if (existingItem) {
+        newCart = cart.map((item) =>
+          item.id === productId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        newCart = [...cart, { ...product, quantity: 1 }];
+      }
+
+      setCart(newCart);
+      setShowNotif(true);
+      setTimeout(() => setShowNotif(false), 2000);
 
       setShowNotif(true)
 

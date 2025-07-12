@@ -14,7 +14,7 @@ import java.security.Key;
 @Component
 public class JwtUtil {
 
-    private static final long EXPIRATION_TIME = 86400000; // 1 hari
+    private static final long EXPIRATION_TIME = 604800000; // 7 hari
     private static final String SECRET = "MyJwtSecretKeyMyJwtSecretKeyMyJwtSecretKey"; // Harus 256 bit
 
     private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());

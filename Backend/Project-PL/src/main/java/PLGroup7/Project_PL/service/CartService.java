@@ -27,7 +27,7 @@ public class CartService {
     private OrderItemRepository orderItemRepository;
 
     public Order getOrCreateCart(String username) {
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new RuntimeException("User tidak ditemukan"));
 
         Optional<Order> optionalCart = orderRepository.findByUserAndStatus(user, OrderStatus.CART);

@@ -34,7 +34,7 @@ export default function Navbar() {
                 alt="logo"
                 height={60}
                 width={120}
-                className=""
+                className="w-auto h-auto"
               />
             </Link>
           </div>
@@ -116,7 +116,7 @@ export default function Navbar() {
               alt="Cart Icon"
               width={35}
               height={35}
-              className="invert dark:invert-0"
+              className="invert dark:invert-0 w-auto h-auto"
             />
           </button>
           <button

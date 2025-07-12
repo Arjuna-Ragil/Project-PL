@@ -8,6 +8,7 @@ import PLGroup7.Project_PL.model.OrderItem;
 import PLGroup7.Project_PL.model.Produk;
 import PLGroup7.Project_PL.model.User;
 import PLGroup7.Project_PL.model.OrderStatus;
+import PLGroup7.Project_PL.model.ShippingDetail;
 import PLGroup7.Project_PL.repository.OrderItemRepository;
 import PLGroup7.Project_PL.repository.OrderRepository;
 import PLGroup7.Project_PL.repository.ProdukRepository;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
@@ -110,17 +112,20 @@ public class CartController {
             return ResponseEntity.badRequest().body("Cart masih kosong");
         }
 
-        // Simpan informasi shipping ke dalam order
-    cart.setFirstName(checkoutRequest.getFirstName());
-    cart.setLastName(checkoutRequest.getLastName());
-    cart.setEmail(checkoutRequest.getEmail());
-    cart.setPhone(checkoutRequest.getPhone());
-    cart.setStreet(checkoutRequest.getStreet());
-    cart.setCity(checkoutRequest.getCity());
-    cart.setProvince(checkoutRequest.getProvince());
-    cart.setCountry(checkoutRequest.getCountry());
-    cart.setDistrict(checkoutRequest.getDistrict());
-
+        // Buat dan simpan informasi shipping
+        ShippingDetail shippingDetail = new ShippingDetail();
+        shippingDetail.setFirstName(checkoutRequest.getFirstName());
+        shippingDetail.setLastName(checkoutRequest.getLastName());
+        shippingDetail.setEmail(checkoutRequest.getEmail());
+        shippingDetail.setPhone(checkoutRequest.getPhone());
+        shippingDetail.setStreet(checkoutRequest.getStreet());
+        shippingDetail.setCity(checkoutRequest.getCity());
+        shippingDetail.setProvince(checkoutRequest.getProvince());
+        shippingDetail.setCountry(checkoutRequest.getCountry());
+        shippingDetail.setDistrict(checkoutRequest.getDistrict());
+        shippingDetail.setOrder(cart);
+        
+        cart.setShippingDetail(shippingDetail);
         cart.setStatus(OrderStatus.ORDERED);
         cart.setTanggalOrder(LocalDateTime.now());
         orderRepository.save(cart);

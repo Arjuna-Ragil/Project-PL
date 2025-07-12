@@ -63,21 +63,33 @@ export default function OrderDetail({ show }) {
           <div className="grid grid-cols-2 gap-3">
             <input
               type="text"
+              name="firstName"
+              value={form.firstName}
+              onChange={handleChange}
               placeholder="First name"
               className="focus:border-select border-1 p-3 focus:outline-0"
             />
             <input
               type="text"
+              name="lastName"
+              value={form.lastName}
+              onChange={handleChange}
               placeholder="Last name"
               className="focus:border-select border-1 p-3 focus:outline-0"
             />
             <input
               type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
               placeholder="Phone number"
               className="focus:border-select border-1 p-3 focus:outline-0"
             />
             <input
               type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
               placeholder="Email"
               className="focus:border-select border-1 p-3 focus:outline-0"
             />

@@ -3,6 +3,8 @@ package PLGroup7.Project_PL.controller;
 import PLGroup7.Project_PL.dto.UserDTO;
 import PLGroup7.Project_PL.model.User;
 import PLGroup7.Project_PL.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,9 +27,11 @@ public class UserController {
             return ResponseEntity.status(401).body("Unauthorized: userDetails is null");
         }
         
-        Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
-
+        Optional<User> optionalUser = userRepository.findByEmail(userDetails.getUsername());
+        
         if (optionalUser.isEmpty()) {
+            // Log untuk debugging
+            System.out.println("User not found with email: " + userDetails.getUsername());
             return ResponseEntity.notFound().build();
         }
 
@@ -40,5 +44,10 @@ public class UserController {
         );
 
         return ResponseEntity.ok(dto);
+    }
+
+    @PostConstruct
+    public void debugloaded() {
+        System.out.println("UserController Loaded");
     }
 }

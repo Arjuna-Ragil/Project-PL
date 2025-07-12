@@ -32,32 +32,28 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime tanggalOrder;
+    private LocalDateTime tanggal_order;
+
+    private Double total_harga;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-    public OrderStatus getStatus() {
-        return status;
-    }
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users_id") // Changed from user_id to users_id to match database column name
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
 
-private String firstName;
-private String lastName;
-private String email;
-private String phone;
-private String street;
-private String city;
-private String province;
-private String country;
-private String district;
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private ShippingDetail shippingDetail;
 
+    public void setTanggalOrder(LocalDateTime tanggalOrder) {
+        this.tanggal_order = tanggalOrder;
+    }
+
+    public LocalDateTime getTanggalOrder() {
+        return this.tanggal_order;
+    }
 }

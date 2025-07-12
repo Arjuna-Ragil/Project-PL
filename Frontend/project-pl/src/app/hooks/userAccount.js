@@ -8,6 +8,7 @@ const AccountContext = createContext()
 export function AccountProvider({ children }) {
     const [loading, setLoading] = useState(true)
     const [account, setAccount] = useState(null)
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -18,6 +19,7 @@ export function AccountProvider({ children }) {
 
         async function fetchData() {
           try {
+            setError(null);
             const res = await fetch("http://localhost:8080/api/user/profile", {
                 method: "GET",
                 headers: {
@@ -27,14 +29,22 @@ export function AccountProvider({ children }) {
             });
 
             if (!res.ok) {
+                if (res.status === 401) {
+                    // Token expired atau invalid
+                    localStorage.removeItem("token");
+                    throw new Error("Sesi telah berakhir, silakan login kembali");
+                } else if (res.status === 404) {
+                    throw new Error("Data profil tidak ditemukan");
+                }
                 throw new Error("Gagal mengambil data akun");
             }
 
             const data = await res.json();
             setAccount(data);
-            setLoading(false)
           } catch (error) {
-            console.error("Gagal fetch account", error);
+            console.error("Gagal fetch account:", error);
+            setError(error.message);
+            setAccount(null);
           } finally {
             setLoading(false);
           }
@@ -44,15 +54,25 @@ export function AccountProvider({ children }) {
       }, []);
 
       return (
-        <>
-            {loading ? 
-                <Loading/>
-            :
-                <AccountContext.Provider value={{ account, setAccount, loading}}>
-                    {children}
-                </AccountContext.Provider>
-            }
-        </>
+        <AccountContext.Provider value={{ account, setAccount, loading, error }}>
+          {loading ? (
+            <Loading />
+          ) : error ? (
+            <div className="text-center py-4">
+              <div className="text-red-500">{error}</div>
+              {error.includes("login") && (
+                <button 
+                  onClick={() => window.location.href = '/login'}
+                  className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  Login
+                </button>
+              )}
+            </div>
+          ) : (
+            children
+          )}
+        </AccountContext.Provider>
       )
 }
 

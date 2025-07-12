@@ -51,6 +51,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
         String authHeader = request.getHeader("Authorization");
+        System.out.println("Auth header: " + authHeader);
+        
         String token = null;
         String username = null;
         List<String> roles = Collections.emptyList();
@@ -58,7 +60,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
+            System.out.println("Token: " + token);
             username = jwtUtil.extractUsername(token);
+            System.out.println("Extracted username: " + username);
         }
 
         // Jika username valid dan belum ada auth di security context
@@ -71,10 +75,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     .map (role -> new SimpleGrantedAuthority("ROLE_" + role))
                     .toList();
 
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
                 UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
 
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
